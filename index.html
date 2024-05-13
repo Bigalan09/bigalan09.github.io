@@ -11,45 +11,55 @@
 <body>
     <h1>Calorie Calculator</h1>
     <form onsubmit="return false;">
-        <label for="gender">Gender (Male/Female):</label>
-        <select id="gender">
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-        </select><br>
-    
-        <label for="height">Height (cm):</label>
-        <input type="number" id="height" required><br>
-    
-        <label for="currentWeight">Current Weight (kg):</label>
-        <input type="number" id="currentWeight" required><br>
-    
-        <label for="bodyFat">Body Fat Percentage (%):</label>
-        <input type="number" id="bodyFat" required><br>
-    
-        <label for="age">Age:</label>
-        <input type="number" id="age" required><br>
-    
-        <label for="activityLevel">Activity Level (1-5):</label>
-        <select id="activityLevel">
-            <option value="1">1 - Sedentary</option>
-            <option value="2">2 - Lightly active</option>
-            <option value="3">3 - Moderately active</option>
-            <option value="4">4 - Very active</option>
-            <option value="5">5 - Extra active</option>
-        </select><br>
-    
-        <label for="targetWeight">Target Weight (kg):</label>
-        <input type="number" id="targetWeight" required><br>
-    
-        <label for="weeklyTargetLoss">Weekly Target Loss (kg):</label>
-        <input type="number" id="weeklyTargetLoss" required><br>
+        <p>
+            <label for="gender">Gender (Male/Female):</label>
+            <select id="gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select><br>
+        </p>
+        <p>
+            <label for="height">Height (cm):</label>
+            <input type="number" id="height" required><br>
+        </p>
+        <p>
+            <label for="currentWeight">Current Weight (kg):</label>
+            <input type="number" id="currentWeight" required><br>
+        </p>
+        <p>
+            <label for="bodyFat">Body Fat Percentage (%):</label>
+            <input type="number" id="bodyFat" required><br>
+        </p>
+        <p>
+            <label for="age">Age:</label>
+            <input type="number" id="age" required><br>
+        </p>
+        <p>
+            <label for="activityLevel">Activity Level (1-5):</label>
+            <select id="activityLevel">
+                <option value="1">1 - Sedentary</option>
+                <option value="2">2 - Lightly active</option>
+                <option value="3">3 - Moderately active</option>
+                <option value="4">4 - Very active</option>
+                <option value="5">5 - Extra active</option>
+            </select><br>
+        </p>
+        <p>
+            <label for="targetWeight">Target Weight (kg):</label>
+            <input type="number" id="targetWeight" required><br>
+        </p>
+        <p>
+            <label for="weeklyTargetLoss">Weekly Target Loss (kg):</label>
+            <input type="number" id="weeklyTargetLoss" required><br>
+        </p>
         <p>
             <button onclick="calculateCalories()" formnovalidate>Calculate</button>
         </p>
     </form>
+    <p>
     <h2>Results:</h2>
     <div id="results"></div>
-
+    </p>
     <script>
         function calculateCalories() {
             const gender = document.getElementById("gender").value;
