@@ -6,60 +6,116 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calorie Calculator</title>
     <link rel="stylesheet" href="https://unpkg.com/bamboo.css/dist/dark.min.css">
+    <style>
+        #macro-calc {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Calorie Calculator</h1>
-    <form onsubmit="return false;">
+    <section>
+        <h1>Calorie Calculator</h1>
+        <form onsubmit="return false;">
+            <p>
+                <label for="gender">Gender (Male/Female):</label>
+                <select id="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select><br>
+            </p>
+            <p>
+                <label for="height">Height (cm):</label>
+                <input type="number" id="height" required><br>
+            </p>
+            <p>
+                <label for="currentWeight">Current Weight (kg):</label>
+                <input type="number" id="currentWeight" required><br>
+            </p>
+            <p>
+                <label for="bodyFat">Body Fat Percentage (%):</label>
+                <input type="number" id="bodyFat" required><br>
+            </p>
+            <p>
+                <label for="age">Age:</label>
+                <input type="number" id="age" required><br>
+            </p>
+            <p>
+                <label for="activityLevel">Activity Level (1-5):</label>
+                <select id="activityLevel">
+                    <option value="1">1 - Sedentary</option>
+                    <option value="2">2 - Lightly active</option>
+                    <option value="3">3 - Moderately active</option>
+                    <option value="4">4 - Very active</option>
+                    <option value="5">5 - Extra active</option>
+                </select><br>
+            </p>
+            <p>
+                <label for="targetWeight">Target Weight (kg):</label>
+                <input type="number" id="targetWeight" required><br>
+            </p>
+            <p>
+                <label for="weeklyTargetLoss">Weekly Target Loss (kg):</label>
+                <input type="number" id="weeklyTargetLoss" required><br>
+            </p>
+            <input type="hidden" id="calories" />
+            <p>
+                <button onclick="calculateCalories()" formnovalidate>Calculate</button>
+            </p>
+        </form>
         <p>
-            <label for="gender">Gender (Male/Female):</label>
-            <select id="gender">
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-            </select><br>
+        <h2>Results:</h2>
+        <div id="results"></div>
+        </p>
+    </section>
+    <section id="macro-calc">
+        <h2>Macro Calculator</h2>
+        <p>
+            <label>Total Fat Percentage:</label>
+            <input type="range" id="fatPercentage" name="fatPercentage" min="0" max="100" value="30"
+                oninput="updatePercentage('fat')">
+            <span id="fatPercentLabel">30%</span><br><br>
         </p>
         <p>
-            <label for="height">Height (cm):</label>
-            <input type="number" id="height" required><br>
+            <label>Saturated Fat Percentage of Total Fat:</label>
+            <input type="range" id="satFatPercentage" name="satFatPercentage" min="0" max="100" value="33"
+                oninput="updatePercentage('satFat')">
+            <span id="satFatPercentLabel">33%</span><br><br>
         </p>
         <p>
-            <label for="currentWeight">Current Weight (kg):</label>
-            <input type="number" id="currentWeight" required><br>
+            <label>Trans Fat Percentage of Total Fat:</label>
+            <input type="range" id="transFatPercentage" name="transFatPercentage" min="0" max="100" value="3"
+                oninput="updatePercentage('transFat')">
+            <span id="transFatPercentLabel">3%</span><br><br>
         </p>
         <p>
-            <label for="bodyFat">Body Fat Percentage (%):</label>
-            <input type="number" id="bodyFat" required><br>
+            <label>Carbohydrate Percentage:</label>
+            <input type="range" id="carbPercentage" name="carbPercentage" min="0" max="100" value="50"
+                oninput="updatePercentage('carb')">
+            <span id="carbPercentLabel">50%</span><br><br>
         </p>
         <p>
-            <label for="age">Age:</label>
-            <input type="number" id="age" required><br>
+            <label>Protein Percentage:</label>
+            <input type="range" id="proteinPercentage" name="proteinPercentage" min="0" max="100" value="20"
+                oninput="updatePercentage('protein')">
+            <span id="proteinPercentLabel">20%</span><br><br>
         </p>
         <p>
-            <label for="activityLevel">Activity Level (1-5):</label>
-            <select id="activityLevel">
-                <option value="1">1 - Sedentary</option>
-                <option value="2">2 - Lightly active</option>
-                <option value="3">3 - Moderately active</option>
-                <option value="4">4 - Very active</option>
-                <option value="5">5 - Extra active</option>
-            </select><br>
+            <button onclick="convertCaloriesToMacros()">Convert</button>
         </p>
         <p>
-            <label for="targetWeight">Target Weight (kg):</label>
-            <input type="number" id="targetWeight" required><br>
+        <h3>Macronutrient Breakdown</h3>
+        <ul>
+            <li>Total Fat: <span id="totalFat">0</span> grams</li>
+            <li>Saturated Fat: <span id="saturatedFat">0</span> grams</li>
+            <li>Trans Fat: <span id="transFat">0</span> grams</li>
+            <li>Carbohydrates: <span id="carbohydrates">0</span> grams</li>
+            <li>Fiber: <span id="fiber">0</span> grams</li>
+            <li>Sugars: <span id="sugars">0</span> grams</li>
+            <li>Protein: <span id="protein">0</span> grams</li>
+        </ul>
         </p>
-        <p>
-            <label for="weeklyTargetLoss">Weekly Target Loss (kg):</label>
-            <input type="number" id="weeklyTargetLoss" required><br>
-        </p>
-        <p>
-            <button onclick="calculateCalories()" formnovalidate>Calculate</button>
-        </p>
-    </form>
-    <p>
-    <h2>Results:</h2>
-    <div id="results"></div>
-    </p>
+    </section>
     <script>
         function calculateCalories() {
             const gender = document.getElementById("gender").value;
@@ -105,6 +161,51 @@
             results.push(`Estimated Daily Calories: ${dailyCaloricIntake.toFixed(0)}, Estimated Goal Date: ${goalDate.toLocaleDateString()}`);
 
             document.getElementById("results").innerHTML = results.join("<br />");
+            document.querySelector('#macro-calc').style.display = 'block';
+            document.querySelector('#calories').value = averageCalories;
+        }
+
+        function updatePercentage(type) {
+            const fatPercentage = document.getElementById('fatPercentage').value;
+            const satFatPercentage = document.getElementById('satFatPercentage').value;
+            const transFatPercentage = document.getElementById('transFatPercentage').value;
+            const carbPercentage = document.getElementById('carbPercentage').value;
+            const proteinPercentage = document.getElementById('proteinPercentage').value;
+
+            document.getElementById('fatPercentLabel').innerText = fatPercentage + '%';
+            document.getElementById('satFatPercentLabel').innerText = satFatPercentage + '%';
+            document.getElementById('transFatPercentLabel').innerText = transFatPercentage + '%';
+            document.getElementById('carbPercentLabel').innerText = carbPercentage + '%';
+            document.getElementById('proteinPercentLabel').innerText = proteinPercentage + '%';
+        }
+
+        function convertCaloriesToMacros() {
+            const totalCalories = document.getElementById('calories').value;
+            const fatPercentage = document.getElementById('fatPercentage').value / 100;
+            const satFatPercentage = document.getElementById('satFatPercentage').value / 100;
+            const transFatPercentage = document.getElementById('transFatPercentage').value / 100;
+            const carbPercentage = document.getElementById('carbPercentage').value / 100;
+            const proteinPercentage = document.getElementById('proteinPercentage').value / 100;
+
+            const fatCalories = totalCalories * fatPercentage;
+            const carbCalories = totalCalories * carbPercentage;
+            const proteinCalories = totalCalories * proteinPercentage;
+
+            const totalFat = fatCalories / 9;
+            const saturatedFat = totalFat * satFatPercentage;
+            const transFat = totalFat * transFatPercentage;
+            const carbohydrates = carbCalories / 4;
+            const fiber = carbohydrates * 0.05; // Keeping fiber as 5% of total carbs for simplicity
+            const sugars = carbohydrates * 0.10; // Keeping sugars as 10% of total carbs for simplicity
+            const protein = proteinCalories / 4;
+
+            document.getElementById('totalFat').innerText = totalFat.toFixed(2);
+            document.getElementById('saturatedFat').innerText = saturatedFat.toFixed(2);
+            document.getElementById('transFat').innerText = transFat.toFixed(2);
+            document.getElementById('carbohydrates').innerText = carbohydrates.toFixed(2);
+            document.getElementById('fiber').innerText = fiber.toFixed(2);
+            document.getElementById('sugars').innerText = sugars.toFixed(2);
+            document.getElementById('protein').innerText = protein.toFixed(2);
         }
     </script>
 </body>
